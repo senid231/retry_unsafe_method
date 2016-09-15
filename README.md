@@ -1,8 +1,8 @@
 # RetryUnsafeMethod
-### Status
-[![Build Status](https://travis-ci.org/senid231/retry_unsafe_method.png)](https://travis-ci.org/senid231/retry_unsafe_method)
-
 Allow easily make methods retriable
+
+[![Version  ](http://img.shields.io/gem/v/retry_unsafe_method.svg)          ](https://rubygems.org/gems/retry_unsafe_method)
+[![Travis CI](http://img.shields.io/travis/senid231/retry_unsafe_method.svg)](https://travis-ci.org/senid231/retry_unsafe_method)
 
 ## Installation
 
