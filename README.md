@@ -1,4 +1,6 @@
 # RetryUnsafeMethod
+### Status
+[![Build Status](https://travis-ci.org/senid231/retry_unsafe_method.png)](https://travis-ci.org/senid231/retry_unsafe_method)
 
 Allow easily make methods retriable
 
