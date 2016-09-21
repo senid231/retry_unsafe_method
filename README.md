@@ -3,8 +3,8 @@ Allow easily make methods retriable
 
 [![Version  ](http://img.shields.io/gem/v/retry_unsafe_method.svg)          ](https://rubygems.org/gems/retry_unsafe_method)
 [![Travis CI](http://img.shields.io/travis/senid231/retry_unsafe_method.svg)](https://travis-ci.org/senid231/retry_unsafe_method)
-[![CodeClimate](https://codeclimate.com/github/senid231/retry_unsafe_method/badges/gpa.svg)](https://codeclimate.com/github/senid231/retry_unsafe_method/badges)
-[![Coverage](https://codeclimate.com/github/senid231/retry_unsafe_method/badges/coverage.svg)](https://codeclimate.com/github/senid231/retry_unsafe_method/badges)
+[![CodeClimate](https://codeclimate.com/github/senid231/retry_unsafe_method/badges/gpa.svg)](https://codeclimate.com/github/senid231/retry_unsafe_method)
+[![Coverage](https://codeclimate.com/github/senid231/retry_unsafe_method/badges/coverage.svg)](https://codeclimate.com/github/senid231/retry_unsafe_method/coverage)
 
 ## Installation
 

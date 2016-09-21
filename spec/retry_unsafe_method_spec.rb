@@ -123,6 +123,8 @@ describe RetryUnsafeMethod::RetryUnsafeMethod do
 
 
   # TESTS
+
+
   context 'when method is public' do
     let(:tested_class_namespace) { 'RetryUnsafeSpec::WithPublic' }
 
@@ -140,6 +142,7 @@ describe RetryUnsafeMethod::RetryUnsafeMethod do
     include_examples :correct_behaviour_with_any_args_and_block, :tested_method_is_private
   end
 
+
   context 'when method is protected' do
     let(:tested_class_namespace) { 'RetryUnsafeSpec::WithProtected' }
 
@@ -147,6 +150,7 @@ describe RetryUnsafeMethod::RetryUnsafeMethod do
 
     include_examples :correct_behaviour_with_any_args_and_block, :tested_method_is_protected
   end
+
 
   context 'additional checks' do
     subject do
@@ -187,6 +191,24 @@ describe RetryUnsafeMethod::RetryUnsafeMethod do
       include_context :stub_expectation_kernel_sleep
 
       include_examples :correct_behaviour_of_retry_unsafe_method
+    end
+
+  end
+
+
+  context 'when trying to retry method that does not exists' do
+    subject do
+
+      class WithNotExistingMethod
+        include RetryUnsafeMethod::RetryUnsafeMethod
+
+        retry_unsafe_method :qwe, 1, RetryUnsafeSpec::TestError
+      end
+
+    end
+
+    it 'raises StandardError with correct message' do
+      expect { subject }.to raise_error StandardError, 'method qwe is not defined'
     end
 
   end
