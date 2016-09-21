@@ -115,10 +115,18 @@ describe RetryUnsafeMethod::RetryUnsafeMethod do
 
   end # shared_examples :correct_behaviour_with_any_args_and_block
 
+  shared_context :stub_expectation_kernel_sleep do
+    before do
+      expect(tested_instance).to receive(:sleep).with(RetryUnsafeSpec::WAIT_SECONDS).at_most(RetryUnsafeSpec::RETRY_QTY).times
+    end
+  end # shared_context :stub_expectation_kernel_sleep
+
 
   # TESTS
   context 'when method is public' do
     let(:tested_class_namespace) { 'RetryUnsafeSpec::WithPublic' }
+
+    before { expect(tested_instance).to_not receive(:sleep) }
 
     include_examples :correct_behaviour_with_any_args_and_block, :tested_method_is_public
   end
@@ -127,13 +135,60 @@ describe RetryUnsafeMethod::RetryUnsafeMethod do
   context 'when method is private' do
     let(:tested_class_namespace) { 'RetryUnsafeSpec::WithPrivate' }
 
+    before { expect(tested_instance).to_not receive(:sleep) }
+
     include_examples :correct_behaviour_with_any_args_and_block, :tested_method_is_private
   end
 
   context 'when method is protected' do
     let(:tested_class_namespace) { 'RetryUnsafeSpec::WithProtected' }
 
+    before { expect(tested_instance).to_not receive(:sleep) }
+
     include_examples :correct_behaviour_with_any_args_and_block, :tested_method_is_protected
+  end
+
+  context 'additional checks' do
+    subject do
+      tested_instance.__send__(tested_method)
+    end
+
+    context 'with exception class in arguments' do
+      let(:tested_class_namespace) { 'RetryUnsafeSpec' }
+      let(:tested_class) { 'WithExceptionArgument' }
+
+      before { expect(tested_instance).to_not receive(:sleep) }
+
+      include_examples :correct_behaviour_of_retry_unsafe_method
+    end
+
+    context 'with exception class in arguments and last argument is a hash that contains incorrect wait' do
+      let(:tested_class_namespace) { 'RetryUnsafeSpec' }
+      let(:tested_class) { 'WithIncorrectWait' }
+
+      before { expect(tested_instance).to_not receive(:sleep) }
+
+      include_examples :correct_behaviour_of_retry_unsafe_method
+    end
+
+    context 'with exception class in arguments and last argument is a hash that contains correct wait' do
+      let(:tested_class_namespace) { 'RetryUnsafeSpec' }
+      let(:tested_class) { 'WithCorrectWait' }
+
+      include_context :stub_expectation_kernel_sleep
+
+      include_examples :correct_behaviour_of_retry_unsafe_method
+    end
+
+    context 'when arguments is am array with one hash that contains correct wait' do
+      let(:tested_class_namespace) { 'RetryUnsafeSpec' }
+      let(:tested_class) { 'WithCorrectWaitAndExceptionBlock' }
+
+      include_context :stub_expectation_kernel_sleep
+
+      include_examples :correct_behaviour_of_retry_unsafe_method
+    end
+
   end
 
 end

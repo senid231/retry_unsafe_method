@@ -33,7 +33,15 @@ and add after method definition
 
 or
 
+`retry_unsafe_method <method_name>, <retries_qty>, *<exceptions>`, <options>
+
+or
+
 `retry_unsafe_method <method_name>, <retries_qty>, &<block>`
+
+or
+
+`retry_unsafe_method <method_name>, <retries_qty>, <options>, &<block>`
 
 ```ruby
 require 'retry_unsafe_method'
@@ -50,8 +58,14 @@ class A
   
   retry_unsafe_method :some_method, 2, SomeError
   # or
+  retry_unsafe_method :some_method, 2, SomeError, wait: 5
+  # or
   retry_unsafe_method :some_method, 2 do |e|
     e.is_a?(SomeError)
+  end
+  # or
+  retry_unsafe_method :some_method, 2, wait: 5 do |e|
+      e.is_a?(SomeError)
   end
   
 end

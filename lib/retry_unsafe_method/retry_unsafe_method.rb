@@ -8,6 +8,10 @@ module RetryUnsafeMethod
     module ClassMethods
 
       def retry_unsafe_method(method_name, retry_count, *exceptions, &block)
+        options = exceptions.last.is_a?(Hash) ? exceptions.pop : {}
+
+        wait = options.delete(:wait)
+        wait = nil if wait && (!wait.is_a?(Numeric) || wait <= 0)
 
         unless method_defined?(method_name) || private_method_defined?(method_name)
           raise StandardError.new("method #{method_name} is not defined")
@@ -34,6 +38,7 @@ module RetryUnsafeMethod
 
               if instance_variable_get(ivar) < retry_count
                 instance_variable_set(ivar, instance_variable_get(ivar) + 1)
+                sleep(wait) if wait
                 retry
               else
                 remove_instance_variable(ivar)
