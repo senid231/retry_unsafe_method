@@ -33,7 +33,7 @@ and add after method definition
 
 or
 
-`retry_unsafe_method <method_name>, <retries_qty>, *<exceptions>`, <options>
+`retry_unsafe_method <method_name>, <retries_qty>, *<exceptions>, <options>`
 
 or
 
